@@ -1,5 +1,5 @@
 package com.bookstore.entity;
-// Generated Sep 1, 2019 11:43:21 PM by Hibernate Tools 5.2.12.Final
+// Generated Sep 20, 2019 1:21:56 PM by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,9 +28,13 @@ public class Employee implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer employeeId;
+	private String fullName;
 	private String email;
 	private String password;
-	private String fullName;
+	private String confirmPassword;
+	private String address;
+	private String phoneNumber;
+	private String city;
 
 	public Employee() {
 	}
@@ -41,15 +45,22 @@ public class Employee implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Employee(String email, String fullName, String password) {
-		this.email = email;
+	public Employee(String fullName, String address, String phoneNumber, String email, String password,
+			String confirmPassword, String city) {
+		super();
 		this.fullName = fullName;
+		this.email = email;
 		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.city = city;
 	}
 
-	public Employee(Integer employeId, String email, String fullName, String password) {
-		this(email, fullName, password);
-		this.employeeId = employeId;
+	public Employee(Integer employeeId, String fullName, String address, String phoneNumber, String email,
+			String password, String confirmPassword, String city) {
+		this(fullName, address, phoneNumber, email, password, confirmPassword, city);
+		this.employeeId = employeeId;
 	}
 
 	@Id
@@ -61,6 +72,15 @@ public class Employee implements java.io.Serializable {
 
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	@Column(name = "fullName", nullable = false, length = 45)
+	public String getFullName() {
+		return this.fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	@Column(name = "email", nullable = false, length = 45)
@@ -81,13 +101,40 @@ public class Employee implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "fullName", nullable = false, length = 45)
-	public String getFullName() {
-		return this.fullName;
+	@Column(name = "confirmPassword", nullable = false, length = 45)
+	public String getConfirmPassword() {
+		return this.confirmPassword;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	@Column(name = "address", nullable = false, length = 45)
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Column(name = "phoneNumber", nullable = false)
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Column(name = "city", nullable = false, length = 45)
+	public String getCity() {
+		return this.city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }

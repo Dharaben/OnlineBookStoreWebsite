@@ -17,41 +17,24 @@
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
-	
-<div class="container">
-  <div class="panel-group">
-     <div class="panel panel-success">
-      <div class="panel-heading"><center><h3><b>Administrative Dashboard</b></h3></center></div>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading"><b>Quick Action</b></div>
-      <div class="panel-body">
-      	<center><b>
-      	  <a href="employee_form.jsp">New Employee</a> &nbsp; 
-      	        <a href="new_book">New Book</a> &nbsp; 
-				<a href="category_form.jsp">New Category</a> &nbsp; 
-				<a href="customer_form.jsp">New Customer</a>
-		</b></center>
-      </div>
-    </div>
-
+	<div align="center">  <h3><button type="button"  class="btn btn-success btn-lg btn-block">Administration DashBoard</button></h3></div>
+  <div class="panel-group" align="center">
     <div class="panel panel-success">
       <div class="panel-heading"><b>Recent sales</b></div>
       <div class="panel-body"></div>
     </div>
 
-    <div class="panel panel-info">
+    <div class="panel panel-info" align="center">
       <div class="panel-heading"><b>Recent Review</b></div>
       <div class="panel-body"></div>
     </div>
 
-    <div class="panel panel-warning">
+    <div class="panel panel-warning" align="center">
       <div class="panel-heading"><b>Statistics</b></div>
       <div class="panel-body"></div>
     </div>
   </div>
-</div>
+
 
 	<jsp:directive.include file="footer.jsp" />
 </body>

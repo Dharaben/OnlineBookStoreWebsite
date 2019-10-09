@@ -141,7 +141,7 @@ public class BookDAOTest {
 	@Test
 	public void testCount() {
 		long totalBooks = bookDAO.count();
-		System.out.println("Total Book Count: "+totalBooks);
+		System.out.println("Total Book Count: " + totalBooks);
 		assertEquals(2, totalBooks);
 	}
 
@@ -152,6 +152,7 @@ public class BookDAOTest {
 
 		assertTrue(true);
 	}
+
 	@Test
 	public void testFindByTitleNotExist() {
 		String title = "Thinking in java";
@@ -164,13 +165,70 @@ public class BookDAOTest {
 	public void testFindByTitleExist() {
 		String title = "Effective Java(3rd Edition)";
 		Book book = bookDAO.findByTitle(title);
-		System.out.println("Book Author:"+ book.getAuthor());
-		System.out.println("Book Price" +book.getPrice());
+		System.out.println("Book Author:" + book.getAuthor());
+		System.out.println("Book Price" + book.getPrice());
 		assertNotNull(book);
 	}
 
+	@Test
+	public void testListByCategory() {
+		int categoryId = 1;
+
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+
+		assertTrue(listBooks.size() > 0);
+	}
 	
-	@AfterClass // After all test methods in the test class
+	@Test
+	public void testListByNewBooks() {
+		List<Book> listNewBooks = bookDAO.listNewBooks();
+		for (Book aBook : listNewBooks) {
+			System.out.println(aBook.getTitle() + "-" + aBook.getPublishedDate());
+		}
+		assertEquals(4, listNewBooks.size());
+	}
+
+	@Test
+	public void testSearchBookInTitle() {
+		String keyword = "java";
+		List<Book> result = bookDAO.search(keyword);
+
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		assertEquals(3, result.size());
+	}
+
+	@Test
+	public void testSearchBookInAuthor() {
+		String keyword = "Craig Walls";
+		List<Book> result = bookDAO.search(keyword);
+
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		assertEquals(1, result.size());
+	}
+
+	@Test
+	public void testSearchBookInDescription() {
+		String keyword = "CompletableFuture";
+		List<Book> result = bookDAO.search(keyword);
+
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		assertEquals(1, result.size());
+	}
+
+	@Test
+	public void testCountByCategory() {
+		int categoryId = 69;
+		long numOfBooks = bookDAO.countByCategory(categoryId);
+		assertTrue(numOfBooks == 7);
+	}
+
+	@AfterClass // After all test methods in the test After class
 	public static void tearDownAfterClass() {
 		bookDAO.close();
 	}

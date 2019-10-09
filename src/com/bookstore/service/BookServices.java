@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class BookServices {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 
-	public BookServices(EntityManager entityManager, HttpServletRequest request, HttpServletResponse response) {
+	public BookServices(HttpServletRequest request, HttpServletResponse response) {
 		super();
 		this.request = request;
 		this.response = response;
@@ -65,7 +64,7 @@ public class BookServices {
 		String title = request.getParameter("title");
 
 		Book existBook = bookDAO.findByTitle(title);
-		
+
 		if (existBook != null) {
 			String message = "Could not create new book because the title '" + title + "' already exists.";
 			listBooks(message);
@@ -82,7 +81,6 @@ public class BookServices {
 			listBooks(message);
 		}
 	}
-
 
 	public void readBookFields(Book book) throws ServletException, IOException {
 		String title = request.getParameter("title");
@@ -164,7 +162,65 @@ public class BookServices {
 
 		String message = "The book has been updated successfully!";
 		listBooks(message);
-		
+
 	}
 
+	public void deleteBook() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		bookDAO.delete(bookId);
+
+		String message = "The Book with ID " + bookId
+				+ " has been soft deleted successfully from here but store in database!";
+
+		listBooks(message);
+
+	}
+
+	public void listBooksCategory() throws ServletException, IOException {
+		Integer categoryId = Integer.parseInt(request.getParameter("id"));
+		List<Book> listBooks = bookDAO.listByCategory(categoryId);
+		Category category = categoryDAO.get(categoryId);
+		List<Category> listCategory = categoryDAO.listAll();
+
+		request.setAttribute("listCategory", listCategory);
+		request.setAttribute("listBooks", listBooks);
+		request.setAttribute("category", category);
+
+		String listPage = "frontend/books_list_by_Category.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(listPage);
+		requestDispatcher.forward(request, response);
+
+	}
+
+	public void viewBookDetail() throws ServletException, IOException {
+		Integer bookId = Integer.parseInt(request.getParameter("id"));
+		Book book = bookDAO.get(bookId);
+		List<Category> listCategory = categoryDAO.listAll();
+
+		request.setAttribute("listCategory", listCategory);
+		request.setAttribute("book", book);
+
+		String detailPage = "frontend/book_detail.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(detailPage);
+		requestDispatcher.forward(request, response);
+
+	}
+
+	public void searchBook() throws ServletException, IOException {
+		String keyword = request.getParameter("keyword");
+		List<Book> result = null;
+
+		if (keyword.equals("")) {
+			result = bookDAO.listAll();
+		} else {
+			result = bookDAO.search(keyword);
+		}
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("result", result);
+
+		String resultPage = "frontend/search_result.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(resultPage);
+		requestDispatcher.forward(request, response);
+
+	}
 }

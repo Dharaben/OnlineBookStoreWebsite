@@ -23,55 +23,68 @@
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
-
-		<div class="panel-group">
-			<div class="panel panel-info">
-				<div class="panel-body">
-					<div align="center">
-						<h3>Category Management</h3>
-						<br/>
-						<h4>
-							<a href="category_form.jsp"><b>Create New Category</b></a>
-						</h4>
-					</div>
-					<c:if test="${message != null}">
-						<div align="center">
-							<h4>${message}</h4>
-						</div>
-					</c:if>
-					<table class="table">
-						<thead>
-							<tr class="danger">
-								<th>Index</th>
-								<th>ID</th>
-								<th>Name</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<c:forEach var="cat" items="${listCategory}" varStatus="status">
-							<tbody>
-								<tr class="info">
-									<td>${status.index + 1}</td>
-									<td>${cat.categoryId}</td>
-									<td>${cat.name}</td>
-									<td>
-									
-										<div class="btn-group">
-											<button type="button" class="btn btn-danger"
-												onclick="location.href = 'edit_category?id=${cat.categoryId}';"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-											<button type="button" class="btn btn-danger"
-												onclick="location.href = 'javascript:confirmationDelete()';"><span class="glyphicon glyphicon-remove-circle"></span> Delete</button>
-										</div>
-									</td>
-
-								</tr>
-							</tbody>
-						</c:forEach>
-					</table>
-				</div>
+	<h3>
+		<button type="button" class="btn btn-danger btn-lg btn-block">Category
+			Management</button>
+	</h3>
+	<div class="panel-group">
+		<div class="panel-body">
+			<div align="center">
+				<h4>
+					<button type="button" class="btn btn-success btn-lg"
+						onclick="location.href = 'category_form.jsp';">Add
+						Category</button>
+				</h4>
 			</div>
-		</div>
+			<c:if test="${message != null}">
+				<div align="center">
+					<h4>${message}</h4>
+				</div>
+			</c:if>
+			<table class="table">
+				<thead>
+					<tr class="danger">
+						<th>Index</th>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<c:forEach var="cat" items="${listCategory}" varStatus="status">
+					<tbody>
+						<tr class="info">
+							<td>${status.index + 1}</td>
+							<td>${cat.categoryId}</td>
+							<td>${cat.name}</td>
+							<td>
 
+								<div class="btn-group">
+									<button type="button" class="btn btn-success"
+										onclick="location.href = 'edit_category?id=${cat.categoryId}';">
+										<span class="glyphicon glyphicon-edit"></span> Edit
+									</button>
+									<button type="button" class="btn btn-danger"
+										onclick="deleteFunction(this.id);" id="${cat.categoryId}">
+										<span class="glyphicon glyphicon-remove-circle"></span> Delete
+									</button>
+								</div>
+							</td>
+
+						</tr>
+					</tbody>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
 	<jsp:directive.include file="footer.jsp" />
 </body>
+<script>
+	function deleteFunction(categoryId) {
+		console.log("Category id: " + categoryId);
+		if (confirm('Are you sure you want to soft delete the category with ID '
+				+ categoryId + '?')) {
+			window.location='delete_category?id=' + categortId;
+		}
+	}
+</script>
 </html>
