@@ -10,7 +10,7 @@ import com.bookstore.entity.Employee;
 public class EmployeeDAO extends JpaDAO<Employee> implements GenericDAO<Employee> {
 
 	public EmployeeDAO() {
-		//super();
+		super();
 
 	}
 

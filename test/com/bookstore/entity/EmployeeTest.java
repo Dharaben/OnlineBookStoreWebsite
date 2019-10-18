@@ -8,13 +8,9 @@ public class EmployeeTest {
 
 	public static void main(String[] args) {
 		Employee employee1 = new Employee();
-		employee1.setFullName("Mr. Milan Patel");
-		employee1.setAddress("223 Columbia Avenue");
-		employee1.setCity("NJ");
-		employee1.setPhoneNumber("201346543");
-		employee1.setEmail("milan@yahoo.com");
+		employee1.setEmail("dharapatel@yahoo.com");
+		employee1.setFullName("Mrs. Dhara Patel");
 		employee1.setPassword("1234");
-		employee1.setConfirmPassword("1234");
 
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("OnlineBookStoreWebsite");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();

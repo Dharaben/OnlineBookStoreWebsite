@@ -24,12 +24,14 @@
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
-	<h3><button type="button" class="btn btn-danger btn-lg btn-block">Book Management</button></h3>
 		<div class="panel-group">
+			<div class="panel panel-info">
 				<div class="panel-body">
 					<div align="center">
+						<h3>Book Management</h3>
+						<br />
 						<h4>
-						<button type="button" class="btn btn-success btn-lg" onclick="location.href = 'new_book';">Add Book</button>
+							<a href="new_book"><b>Create New Book</b></a>
 						</h4>
 					</div>
 					<c:if test="${message != null}">
@@ -69,10 +71,10 @@
 									<td>
 
 										<div class="btn-group">
-											<button type="button" class="btn btn-success"
+											<button type="button" class="btn btn-danger"
 												onclick="location.href = 'edit_book?id=${book.bookId}';"> <span class="glyphicon glyphicon-edit"></span> Edit</button>
 											<button type="button" class="btn btn-danger"
-												onclick="deleteFunction(this.id);"  id="${book.bookId}">     <span class="glyphicon glyphicon-remove-circle"></span> Delete</button>
+												onclick="location.href = 'javascript:confirmationDelete()';">     <span class="glyphicon glyphicon-remove-circle"></span> Delete</button>
 										</div>
 									</td>
 								</tr>
@@ -81,16 +83,7 @@
 					</table>
 				</div>
 			</div>
-
+		</div>
 	<jsp:directive.include file="footer.jsp" />
 </body>
-<script>
-				function deleteFunction(bookId) {
-					console.log("Book id: " + bookId);
-					if(confirm('Are you sure you want to soft delete the book with ID '+ bookId +'?'))
-					{
-						window.location='delete_book?id=' + bookId;
-					}
-				}
-	</script>
 </html>

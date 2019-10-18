@@ -7,22 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Employee Login</title>
+<title>Admin Login</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-
-<!--jQuery bootstrap validation plugin -->
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-<script src="js/<a href="https://www.jqueryscript.net/tags.php?/Validation/">Validation</a>FormScript.js"></script>
 <style type="text/css">
 	body {
-		color: #8B0000;
-		background: #17202A;
-		font-family: "Open Sans", sans-serif;
+		color: #4e4e4e;
+		background: #e2e2e2;
+		font-family: 'Roboto', sans-serif;
 	}
 	.form-control {
         font-size: 16px;
@@ -89,37 +84,37 @@
 		color: #999;
 		text-align: center;
 	}
-	
+	.form-footer {
+    	padding-bottom: 15px;
+		text-align: center;
+    }
 </style>
 </head>
 <body>
 <div class="login-form">
-	<h2 class="text-center" >Employee Login</h2>
+	<h2 class="text-center">Admin Login</h2>
 		<c:if test="${message!=null}">
 			<div align="center">
 				<h4 class="message">${message}</h4>
 
 			</div>
 		</c:if>
-  	<form id="loginForm" action="login" method="post" >
+  	<form id="loginForm" action="login" method="post">
 		<div class="icon">
-		<img src="../images/icon.png" alt="icon" />
-		</div>        
+		<img src="../images/icon.png" alt="icon">
+		</div>           
         <div class="form-group">
-        	<input type="text" name="email" id="email" class="form-control input-lg"  placeholder="Email">
+        	<input type="text" name="email" id="email" class="form-control input-lg"  placeholder="Username" required="required">
         </div>
 		<div class="form-group">
-            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" required="required">
         </div>        
-        
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Sign in</button>
         </div>
         	<p class="hint-text">Don't have an account? <a href="register.jsp">Sign up here</a></p>
     </form>
-
 </div>
-
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -129,22 +124,14 @@
 					required : true,
 					email : true
 				},
-				 password: {
-				        required: true,
-				        minlength : 5,
-		                maxlength : 8
-				      }
-				    },
+				password : "required",
+			},
 			messages : {
 				email : {
 					required : " Please enter email.",
 					email : " Please enter an valid email address."
 				},
-				password: {
-			        required: "Please enter a password.",
-			        minlength: "Minimum password length is 5",
-	                maxlength: "Maximum password length is 8"
-			      },
+				password : " Please enter password."
 			}
 		});
 	});

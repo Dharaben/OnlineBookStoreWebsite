@@ -11,15 +11,23 @@
 					<span class="glyphicon glyphicon-home"></span>
 			</a></li>
 
+			<li><a href="list_employee">Employees <span
+					class="glyphicon glyphicon-user"></span>
+			</a></li>
 			<li><a href="list_category">Categories <span
 					class="glyphicon glyphicon-th-list"></span>
 			</a></li>
 			<li><a href="list_books">Books <span
 					class="glyphicon glyphicon-book"></span></a></li>
-			<li><a href="list_customer">Customers <span
+			<li><a href="customers">Customers <span
 					class="glyphicon glyphicon-user"></span></a></li>
+<<<<<<< HEAD
 			<li><a href="list_review">Reviews <span class="glyphicon glyphicon-star"></span></a></li>
 			<li><a href="list_order">Orders <span
+=======
+			<li><a href="reviews">Reviews <span class="glyphicon glyphicon-star"></span></a></li>
+			<li><a href="orders">Orders <span
+>>>>>>> parent of ddf43aa... commit message goes here
 					class="glyphicon glyphicon-sort-by-order"></span>
 			</a></li>
 		</ul>

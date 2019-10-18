@@ -23,13 +23,10 @@ public class EmployeeDAOTest {
 	@Test // This annotation specifies the annotated method is a test method.
 	public void testCreateEmployee() {
 		Employee employee1 = new Employee();
-		employee1.setFullName("Mr. Milan Patel");
-		employee1.setAddress("223 Columbia Avenue");
-		employee1.setCity("NJ");
-		employee1.setPhoneNumber("201346543");
-		employee1.setEmail("milan@yahoo.com");
-		employee1.setPassword("1234");
-		employee1.setConfirmPassword("1234");
+		employee1.setEmail("kiran@yahoo.com");
+		employee1.setFullName("Mr. Kiran Patel");
+		employee1.setPassword("4321");
+
 		employee1 = employeeDAO.create(employee1);
 
 		assertTrue(employee1.getEmployeeId() > 0); // condition is true
@@ -46,18 +43,14 @@ public class EmployeeDAOTest {
 	@Test
 	public void testUpadteEmployee() {
 		Employee employee = new Employee();
-		employee.setEmployeeId(8);
-		employee.setFullName("Mr. Kelvin Patel");
-		employee.setAddress("223 Columbia Avenue");
-		employee.setCity("NJ");
-		employee.setPhoneNumber("201654329");
-		employee.setEmail("kelvin@yahoo.com ");
-		employee.setPassword("4321");
-		employee.setConfirmPassword("4321");
+		employee.setEmployeeId(2);
+		employee.setEmail("kiran@yahoo.com");
+		employee.setFullName("Mr. Kiran Patel");
+		employee.setPassword("secret1");
 
 		employee = employeeDAO.update(employee);
-		String expected = "4321";
-		String actual = employee.getConfirmPassword();
+		String expected = "secret1";
+		String actual = employee.getPassword();
 
 		assertEquals(expected, actual); // Two values are equal
 	}
@@ -83,7 +76,7 @@ public class EmployeeDAOTest {
 
 	@Test
 	public void testDeleteEmployee() {
-		Integer employeeId = 34;
+		Integer employeeId = 6;
 		employeeDAO.delete(employeeId);
 
 		Employee employee = employeeDAO.get(employeeId);
@@ -111,8 +104,7 @@ public class EmployeeDAOTest {
 	public void testCount() {
 		long totalUsers = employeeDAO.count();
 		System.out.println(totalUsers);
-		//assertEquals(4, totalUsers);
-		assertTrue(totalUsers>0);
+		assertEquals(14, totalUsers);
 	}
 
 	@Test

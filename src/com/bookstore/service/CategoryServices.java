@@ -3,6 +3,7 @@ package com.bookstore.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class CategoryServices {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 
-	public CategoryServices(HttpServletRequest request, HttpServletResponse response) {
+	public CategoryServices(EntityManager entityManager,HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
 		categoryDAO = new CategoryDAO();
@@ -94,14 +95,4 @@ public class CategoryServices {
 			listCategory(message);
 		}
 	}
-
-	public void deleteCategory() throws ServletException, IOException {
-		int categoryId = Integer.parseInt(request.getParameter("id"));
-
-		categoryDAO.delete(categoryId);
-		String message = "The category with ID " + categoryId + " has been soft deleted successfully from here but store in database!";
-
-		listCategory(message);
-	}
-
 }

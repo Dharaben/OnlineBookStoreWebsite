@@ -144,7 +144,7 @@ public class BookDAOTest {
 	@Test
 	public void testCount() {
 		long totalBooks = bookDAO.count();
-		System.out.println("Total Book Count: " + totalBooks);
+		System.out.println("Total Book Count: "+totalBooks);
 		assertEquals(2, totalBooks);
 	}
 
@@ -155,7 +155,6 @@ public class BookDAOTest {
 
 		assertTrue(true);
 	}
-
 	@Test
 	public void testFindByTitleNotExist() {
 		String title = "Thinking in java";
@@ -168,11 +167,12 @@ public class BookDAOTest {
 	public void testFindByTitleExist() {
 		String title = "Effective Java(3rd Edition)";
 		Book book = bookDAO.findByTitle(title);
-		System.out.println("Book Author:" + book.getAuthor());
-		System.out.println("Book Price" + book.getPrice());
+		System.out.println("Book Author:"+ book.getAuthor());
+		System.out.println("Book Price" +book.getPrice());
 		assertNotNull(book);
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void testListByCategory() {
 		int categoryId = 1;
@@ -252,6 +252,10 @@ public class BookDAOTest {
 	}
 
 	@AfterClass // After all test methods in the test After class
+=======
+	
+	@AfterClass // After all test methods in the test class
+>>>>>>> parent of ddf43aa... commit message goes here
 	public static void tearDownAfterClass() {
 		bookDAO.close();
 	}
