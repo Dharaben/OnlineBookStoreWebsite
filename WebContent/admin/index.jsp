@@ -24,7 +24,6 @@
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
-<<<<<<< HEAD
 	<div align="center">
 		<h3>
 			<button type="button" class="btn btn-success btn-lg btn-block">Administration
@@ -113,42 +112,6 @@
 			<b>Total Orders:</b> ${totalOrdes} &nbsp; &nbsp; &nbsp; &nbsp;</div>
 	</div>
 
-=======
-	
-<div class="container">
-  <div class="panel-group">
-     <div class="panel panel-success">
-      <div class="panel-heading"><center><h3><b>Administrative Dashboard</b></h3></center></div>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading"><b>Quick Action</b></div>
-      <div class="panel-body">
-      	<center><b>
-      	  <a href="employee_form.jsp">New Employee</a> &nbsp; 
-      	        <a href="new_book">New Book</a> &nbsp; 
-				<a href="category_form.jsp">New Category</a> &nbsp; 
-				<a href="customer_form.jsp">New Customer</a>
-		</b></center>
-      </div>
-    </div>
-
-    <div class="panel panel-success">
-      <div class="panel-heading"><b>Recent sales</b></div>
-      <div class="panel-body"></div>
-    </div>
-
-    <div class="panel panel-info">
-      <div class="panel-heading"><b>Recent Review</b></div>
-      <div class="panel-body"></div>
-    </div>
-
-    <div class="panel panel-warning">
-      <div class="panel-heading"><b>Statistics</b></div>
-      <div class="panel-body"></div>
-    </div>
-  </div>
->>>>>>> parent of ddf43aa... commit message goes here
 </div>
 
 	<jsp:directive.include file="footer.jsp" />

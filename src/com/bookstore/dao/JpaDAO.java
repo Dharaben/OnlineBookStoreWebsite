@@ -39,6 +39,7 @@ public class JpaDAO<E> {
 		entityManager.refresh(entity);
 
 		entityManager.getTransaction().commit();
+		entityManager.close();
 
 		return entity;
 	}
@@ -48,6 +49,7 @@ public class JpaDAO<E> {
 		entityManager.getTransaction().begin();
 		entityManager.merge(entity);
 		entityManager.getTransaction().commit();
+		entityManager.close();
 		return entity;
 	}
 
@@ -57,6 +59,7 @@ public class JpaDAO<E> {
 		if (entity != null) {
 			entityManager.refresh(entity);
 		}
+		entityManager.close();
 		return entity;
 	}
 
@@ -68,33 +71,26 @@ public class JpaDAO<E> {
 		entityManager.remove(reference);
 
 		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	public List<E> findWithNamedQuery(String queryName) {
 		// this method returns a list of entity objects
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
 		Query query = entityManager.createNamedQuery(queryName); // create query object from the entity manager
-		return query.getResultList(); // returns results
-	}
-
-	public long countWithNamedQuery(String QueryName) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		Query query = entityManager.createNamedQuery(QueryName);
-		long result = (long) query.getSingleResult();
+		List<E> result = query.getResultList(); // returns results
+		
 		entityManager.close();
-
 		return result;
 	}
 
 	public List<E> findWithNamedQuery(String queryName, String paramName, Object paramValue) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
 		Query query = entityManager.createNamedQuery(queryName);
 
 		query.setParameter(paramName, paramValue);
-
 		List<E> result = query.getResultList();
-
 		entityManager.close();
 
 		return result;
@@ -116,7 +112,6 @@ public class JpaDAO<E> {
 		return result;
 	}
 
-<<<<<<< HEAD
 	// list new book
 	public List<E> findWithNamedQuery(String queryName, int firstResult, int maxResult) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -167,11 +162,10 @@ public class JpaDAO<E> {
 		return result;
 	}
 
-=======
->>>>>>> parent of ddf43aa... commit message goes here
 	public void close() {
 		if (entityManagerFactory != null) {
 			entityManagerFactory.close();
 		}
 	}
+
 }

@@ -3,7 +3,6 @@ package com.bookstore.dao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.bookstore.entity.Book;
 
 public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
@@ -37,6 +36,7 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 	public List<Book> listAll() {
 		return super.findWithNamedQuery("Book.findAll");
 	}
+
 	public Book findByTitle(String title) {
 		List<Book> result = super.findWithNamedQuery("Book.findBytitle", "title", title);
 		if (!result.isEmpty()) {
@@ -45,7 +45,6 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 		return null;
 	}
 
-<<<<<<< HEAD
 	public List<Book> listByCategory(int categoryId) {
 
 		return super.findWithNamedQuery("Book.findByCategory", "catId", categoryId);
@@ -61,14 +60,11 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 	public List<Book> search(String keyword) {
 		return super.findWithNamedQuery("Book.search", "keyword", keyword);
 	}
-=======
->>>>>>> parent of ddf43aa... commit message goes here
 
 	@Override
 	public long count() {
 		return super.countWithNamedQuery("Book.countAll");
 	}
-<<<<<<< HEAD
 
 	public long countByCategory(int categoryId) {
 		return super.countWithNamedQuery("Book.countByCategory", "catId", categoryId);
@@ -91,6 +87,4 @@ public class BookDAO extends JpaDAO<Book> implements GenericDAO<Book> {
 		return mostFavoredBooks;
 	}
 
-=======
->>>>>>> parent of ddf43aa... commit message goes here
 }

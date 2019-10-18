@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +25,11 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "customer", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@NamedQueries({ @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c ORDER BY c.registerDate DESC"),
+	@NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+	@NamedQuery(name = "Customer.countAll", query = "SELECT COUNT(c.email) FROM Customer c"),
+	@NamedQuery(name = "Customer.checkLogin", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :pass") 
+})
 public class Customer implements java.io.Serializable {
 
 	/**
@@ -45,8 +52,9 @@ public class Customer implements java.io.Serializable {
 	public Customer() {
 	}
 
-	public Customer(String email, String fullname, String address, String city, String country, String phoneNumber,
-			String zipcode, String password, Date registerDate) {
+	public Customer(Integer customerId,String email, String fullname, String address, String city, String country, String phoneNumber,
+			String zipcode, String password,Date registerDate) {
+		this.customerId=customerId;
 		this.email = email;
 		this.fullname = fullname;
 		this.address = address;
@@ -58,8 +66,9 @@ public class Customer implements java.io.Serializable {
 		this.registerDate = registerDate;
 	}
 
-	public Customer(String email, String fullname, String address, String city, String country, String phoneNumber,
+	public Customer(Integer customerId,String email, String fullname, String address, String city, String country, String phoneNumber,
 			String zipcode, String password, Date registerDate, Set<Review> reviews, Set<Order> orders) {
+		this.customerId=customerId;
 		this.email = email;
 		this.fullname = fullname;
 		this.address = address;
@@ -156,6 +165,7 @@ public class Customer implements java.io.Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "register_date", nullable = false, length = 19)
