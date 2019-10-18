@@ -47,6 +47,7 @@
 								<th>Author</th>
 								<th>Category</th>
 								<th>Price</th>
+								<th>Stock Available</th>
 								<th>Last Updated</th>
 								<th>Actions</th>
 							</tr>
@@ -62,6 +63,7 @@
 									<td>${book.author}</td>
 									<td>${book.category.name}</td>
 									<td>$${book.price}</td>
+									<td>${book.unitstock}</td>
 									<td><fmt:formatDate pattern='MM/dd/yyyy'
 											value='${book.lastUpdateTime}' /></td>
 									<td>

@@ -46,7 +46,8 @@
 						<th>City</th>
 						<th>Country</th>
 						<th>Registered Date</th>
-					
+						
+
 					</tr>
 				</thead>
 				<c:forEach var="customer" items="${listCustomer}" varStatus="status">
@@ -60,6 +61,7 @@
 							<td>${customer.country}</td>
 							<td>${customer.registerDate}</td>
 						
+
 						</tr>
 					</tbody>
 				</c:forEach>

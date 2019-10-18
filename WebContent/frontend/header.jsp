@@ -46,15 +46,32 @@
 						${loggedCustomer.fullname}</a></li>
 				<li><a href="view_orders"><span
 						class="glyphicon glyphicon-sort-by-order"></span> Orders</a></li>
-				<li><a href="logout"><span
-						class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					
+				<li><a href="logout">
+				
+				 <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+						
 			</c:if>
-
-			<li><a href="view_cart" id="cart" id="lblCartCount"><i
-					class="fa fa-shopping-cart "></i> Cart <span
-					class="badge">${status.index + 1}</span></a></li>
+       
+			<li><a href="view_cart" id="cart"><i
+					class="fa fa-shopping-cart "></i> Cart <span class="badge"
+					style="color: orange;" ><b>${cart.totalQuantity}</b></span></a></li>
+					
+			
 
 		</ul>
 
 	</div>
 </nav>
+<script type="text/javascript">
+	
+		$(document).ready(function() {
+			$("#clearCart").click(function() {
+				window.location = 'clear_cart';
+			});
+			
+			
+		
+		});
+	</script>
+

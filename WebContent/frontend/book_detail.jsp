@@ -28,7 +28,7 @@ body {
 h2 {
 	color: #333;
 	text-align: center;
-	text-transform: uppercase;
+	text-transform: uppercase,lowercase;
 	font-family: "Roboto", sans-serif;
 	font-weight: bold;
 	position: relative;
@@ -173,7 +173,16 @@ h2::after {
 				<div>
 				<h3>
 					<b>$ ${book.price}</b>	</h3>
-					<h4><span>Status: </span><span class="text-success"><strong>In Stock</strong></span></h4>
+					<h4><span>Status: </span>
+					<c:choose>
+						<c:when test = "${book.unitstock > 0}">
+							<span class="text-success"><strong>In Stock</strong></span>
+						</c:when>
+						<c:otherwise>
+							<span class="text-success"><strong>Out of Stock</strong></span>
+	   					</c:otherwise>
+   					</c:choose>
+					</h4>
 			
 				
 </div>

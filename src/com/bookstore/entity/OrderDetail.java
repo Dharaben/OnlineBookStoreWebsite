@@ -1,5 +1,5 @@
 package com.bookstore.entity;
-// Generated Sep 1, 2019 11:43:21 PM by Hibernate Tools 5.2.12.Final
+// Generated Oct 11, 2019 2:38:15 PM by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,15 +18,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "order_detail", catalog = "bookstoredb")
+@NamedQueries({
+		@NamedQuery(name = "OrderDetail.bestSelling", query = "SELECT od.book FROM OrderDetail od GROUP by od.book.bookId "
+				+ "ORDER BY SUM(od.quantity) DESC"),
+		@NamedQuery(name = "OrderDetail.countByBook", query = "SELECT COUNT(*) FROM OrderDetail od WHERE od.book.bookId =:bookId")
+
+})
+
 public class OrderDetail implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private OrderDetailId id;
+	private OrderDetailId id = new OrderDetailId();
 	private Book book;
 	private Order order;
+	private int quantity;
+	private float subtotal;
 
 	public OrderDetail() {
 	}
@@ -33,18 +41,18 @@ public class OrderDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public OrderDetail(OrderDetailId id, Book book, Order order) {
+	public OrderDetail(OrderDetailId id, Book book, Order order, int quantity, float subtotal) {
 		this.id = id;
 		this.book = book;
 		this.order = order;
+		this.quantity = quantity;
+		this.subtotal = subtotal;
 	}
 
 	@EmbeddedId
+	@AttributeOverrides({ @AttributeOverride(name = "orderId", column = @Column(name = "order_id", nullable = false)),
+			@AttributeOverride(name = "bookId", column = @Column(name = "book_id", nullable = false)), })
 
-	@AttributeOverrides({ @AttributeOverride(name = "orderId", column = @Column(name = "order_id")),
-			@AttributeOverride(name = "bookId", column = @Column(name = "book_id")),
-			@AttributeOverride(name = "quantity", column = @Column(name = "quantity", nullable = false)),
-			@AttributeOverride(name = "subtotal", column = @Column(name = "subtotal", nullable = false, precision = 12, scale = 0)) })
 	public OrderDetailId getId() {
 		return this.id;
 	}
@@ -53,24 +61,44 @@ public class OrderDetail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "book_id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id", insertable = false, updatable = false, nullable = false)
 	public Book getBook() {
 		return this.book;
 	}
 
 	public void setBook(Book book) {
 		this.book = book;
+		this.id.setBook(book);
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id", insertable = false, updatable = false)
+	@JoinColumn(name = "order_id", insertable = false, updatable = false, nullable = false)
 	public Order getOrder() {
 		return this.order;
 	}
 
 	public void setOrder(Order order) {
 		this.order = order;
+		this.id.setOrder(order);
+	}
+
+	@Column(name = "quantity", nullable = false)
+	public int getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	@Column(name = "subtotal", nullable = false, precision = 12, scale = 0)
+	public float getSubtotal() {
+		return this.subtotal;
+	}
+
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
 	}
 
 }

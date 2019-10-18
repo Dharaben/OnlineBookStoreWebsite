@@ -1,11 +1,13 @@
 package com.bookstore.entity;
-// Generated Sep 1, 2019 11:43:21 PM by Hibernate Tools 5.2.12.Final
+// Generated Oct 15, 2019 9:22:02 PM by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -13,6 +15,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "payment", catalog = "bookstoredb")
+@NamedQueries({
+	@NamedQuery(name = "Payment.findAll",query = "SELECT p FROM Payment p ORDER BY p.nameCard DESC"),
+	@NamedQuery(name = "Payment.countAll",query = "SELECT COUNT(p.expiratinDate) FROM Payment p")
+})
 public class Payment implements java.io.Serializable {
 
 	/**
@@ -20,17 +26,27 @@ public class Payment implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer paymentId;
-	private int customerId;
-	private float paymentTotal;
-	private String paymentMethod;
+	private String nameCard;
+	private String cardNumber;
+	private String expiratinDate;
+	private int cvc;
 
 	public Payment() {
 	}
 
-	public Payment(int customerId, float paymentTotal, String paymentMethod) {
-		this.customerId = customerId;
-		this.paymentTotal = paymentTotal;
-		this.paymentMethod = paymentMethod;
+	public Payment(String nameCard, String cardNumber, String expiratinDate, int cvc) {
+		this.nameCard = nameCard;
+		this.cardNumber = cardNumber;
+		this.expiratinDate = expiratinDate;
+		this.cvc = cvc;
+	}
+	
+	public Payment( Integer paymentId,String nameCard, String cardNumber, String expiratinDate, int cvc) {
+		this.paymentId=paymentId;
+		this.nameCard = nameCard;
+		this.cardNumber = cardNumber;
+		this.expiratinDate = expiratinDate;
+		this.cvc = cvc;
 	}
 
 	@Id
@@ -45,31 +61,40 @@ public class Payment implements java.io.Serializable {
 		this.paymentId = paymentId;
 	}
 
-	@Column(name = "customer_id", nullable = false)
-	public int getCustomerId() {
-		return this.customerId;
+	@Column(name = "nameCard", nullable = false, length = 45)
+	public String getNameCard() {
+		return this.nameCard;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setNameCard(String nameCard) {
+		this.nameCard = nameCard;
 	}
 
-	@Column(name = "payment_total", nullable = false, precision = 12, scale = 0)
-	public float getPaymentTotal() {
-		return this.paymentTotal;
+	@Column(name = "cardNumber", nullable = false)
+	public String getCardNumber() {
+		return this.cardNumber;
 	}
 
-	public void setPaymentTotal(float paymentTotal) {
-		this.paymentTotal = paymentTotal;
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
 
-	@Column(name = "payment_method", nullable = false, length = 45)
-	public String getPaymentMethod() {
-		return this.paymentMethod;
+	@Column(name = "expiratinDate", nullable = false, length = 16)
+	public String getExpiratinDate() {
+		return this.expiratinDate;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setExpiratinDate(String expiratinDate) {
+		this.expiratinDate = expiratinDate;
+	}
+
+	@Column(name = "cvc", nullable = false)
+	public int getCvc() {
+		return this.cvc;
+	}
+
+	public void setCvc(int cvc) {
+		this.cvc = cvc;
 	}
 
 }

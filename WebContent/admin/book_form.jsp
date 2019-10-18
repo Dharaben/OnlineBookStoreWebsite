@@ -167,6 +167,14 @@
 					placeholder="Enter Book Price" name="price" value="${book.price}">
 			</div>
 		</div>
+				<div class="form-group">
+
+			<label class="control-label col-sm-2" for="stockAvailable" >Stock Available:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control inputstl" id="stockAvailable"
+					placeholder="Enter Stock Available" name="stockAvailable" value="${book.unitstock}">
+			</div>
+		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="description">Book
 				Description: </label>
@@ -191,7 +199,9 @@
 					<span class=""></span>Cancel
 				</button>
 			</div>
+	
 		</div>
+	
 	</div>
 	<jsp:directive.include file="footer.jsp" />
 </body>
@@ -216,6 +226,7 @@
 				</c:if>
 				
 				price : "required",
+				stockAvailable:"required",
 				description : "required",
 			},
 			messages : {
@@ -226,6 +237,7 @@
 				publishDate : "Please enter publish date of the book.",
 				bookImage : "Please choose an image of the book.",
 				price : "Please enter price of the book.",
+				stockAvailable:"Please enter Unit Stock Available Quantity. ",
 				description : "Please enter description of the book.",
 			}
 		});

@@ -27,7 +27,7 @@ h2 {
 	font-size: 26px;
 	font-weight: 300;
 	text-align: center;
-	text-transform: uppercase;
+	text-transform: uppercase,lowercase;
 	position: relative;
 	margin: 30px 0 60px;
 }
@@ -273,9 +273,9 @@ h2::after {
 
 				<!-- Wrapper for carousel items -->
 				<div class="carousel-inner">
-					<div class="item carousel-item active">
+			
 						<div class="row">
-							<c:forEach items="" var="book">
+							<c:forEach items="${listBestSellingBooks}" var="book">
 								<div class="col-sm-3">
 									<div class="thumb-wrapper" style="width: 80%; margin: 0 auto;">
 										<div class="img-box" align=center>
@@ -290,9 +290,12 @@ h2::after {
 												</a>
 											</h4>
 											<div>
-												<i>by ${book.author}</i>
+												<i><b>${book.author}</b></i>
 											</div>
-											<div>rating</div>
+											<div>
+											<jsp:directive.include file="book_rating.jsp"/>
+												<a href="view_book?id=${book.bookId}">(${fn:length(book.reviews)})</a>
+											</div>
 											<p class="item-price">
 												<strike></strike> <b>$ ${book.price}</b>
 											</p>
@@ -304,7 +307,7 @@ h2::after {
 							</c:forEach>
 						</div>
 					</div>
-				</div>
+		
 				<!-- Carousel controls -->
 				<a class="carousel-control left carousel-control-prev"
 					href="#myCarousel" data-slide="prev"> <i
@@ -320,16 +323,16 @@ h2::after {
 	<div class="row">
 		<div class="col-md-12">
 			<h2>
-				<b>Most-favored Books</b>
+				<b>Most-Favored Books</b>
 			</h2>
 			<div id="myCarousel" class="carousel slide" data-ride="carousel"
 				data-interval="0">
 
 				<!-- Wrapper for carousel items -->
 				<div class="carousel-inner">
-					<div class="item carousel-item active">
+			
 						<div class="row">
-							<c:forEach items="" var="book">
+							<c:forEach items="${listMostFavoredBooks}" var="book">
 								<div class="col-sm-3">
 									<div class="thumb-wrapper" style="width: 80%; margin: 0 auto;">
 										<div class="img-box" align=center>
@@ -344,29 +347,24 @@ h2::after {
 												</a>
 											</h4>
 											<div>
-												<i>by ${book.author}</i>
+												<i><b>${book.author}</b></i>
 											</div>
-											<div class="star-rating">
-												<ul class="list-inline">
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-													<li class="list-inline-item"><i class="fa fa-star"></i></li>
-												</ul>
+											<div>
+											<jsp:directive.include file="book_rating.jsp"/>
+												<a href="view_book?id=${book.bookId}">(${fn:length(book.reviews)})</a>
 											</div>
 											<p class="item-price">
 												<strike></strike> <b>$ ${book.price}</b>
 											</p>
 
-											<a href="#" class="btn btn-primary" id="buttonAddToCart">Add to Cart</a>
+											<a href="add_to_cart?book_id=${book.bookId}" class="btn btn-primary">Add to Cart</a>
 										</div>
 									</div>
 								</div>
 							</c:forEach>
 						</div>
 					</div>
-				</div>
+		
 				<!-- Carousel controls -->
 				<a class="carousel-control left carousel-control-prev"
 					href="#myCarousel" data-slide="prev"> <i

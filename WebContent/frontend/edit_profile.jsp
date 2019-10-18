@@ -42,7 +42,7 @@ body {
 h2 {
 	color: #333;
 	text-align: center;
-	text-transform: uppercase;
+	text-transform: uppercase,lowercase;
 	font-family: "Roboto", sans-serif;
 	font-weight: bold;
 	position: relative;

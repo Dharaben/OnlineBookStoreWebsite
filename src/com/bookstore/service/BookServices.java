@@ -88,6 +88,7 @@ public class BookServices {
 		String description = request.getParameter("description");
 		String isbn = request.getParameter("isbn");
 		float price = Float.parseFloat(request.getParameter("price"));
+		Integer unitstock=Integer.parseInt(request.getParameter("stockAvailable"));
 
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Date publishDate = null;
@@ -103,13 +104,14 @@ public class BookServices {
 		book.setDescription(description);
 		book.setIsbn(isbn);
 		book.setPublishedDate(publishDate);
-
+		
 		Integer categoryId = Integer.parseInt(request.getParameter("category"));
 		Category category = categoryDAO.get(categoryId);
 		book.setCategory(category);
 
 		book.setPrice(price);
-
+		book.setUnitstock(unitstock);
+		
 		Part part = request.getPart("bookImage");
 
 		if (part != null && part.getSize() > 0) {

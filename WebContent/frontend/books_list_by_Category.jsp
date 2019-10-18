@@ -28,7 +28,7 @@ h2 {
 	font-size: 26px;
 	font-weight: 300;
 	text-align: center;
-	text-transform: uppercase;
+	text-transform: uppercase,lowercase;
 	position: relative;
 	margin: 30px 0 60px;
 }

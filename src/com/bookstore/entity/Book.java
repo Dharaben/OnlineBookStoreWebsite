@@ -64,6 +64,7 @@ public class Book implements java.io.Serializable {
 	private byte[] image;
 	private String base64Image;
 	private float price;
+	private int unitstock;
 	private Date publishedDate;
 	private Date lastUpdateTime;
 	private Set<Review> reviews = new HashSet<Review>(0);
@@ -80,19 +81,20 @@ public class Book implements java.io.Serializable {
 	}
 
 	public Book(String title, String author, String description, String isbn, byte[] image, float price,
-			Date publishedDate, Date lastUpdateTime) {
+			Date publishedDate,int unitstock, Date lastUpdateTime) {
 		this.title = title;
 		this.author = author;
 		this.description = description;
 		this.isbn = isbn;
 		this.image = image;
 		this.price = price;
+		this.unitstock=unitstock;
 		this.publishedDate = publishedDate;
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
 	public Book(Category category, String title, String author, String description, String isbn, byte[] image,
-			float price, Date publishedDate, Date lastUpdateTime, Set<Review> reviews, Set<OrderDetail> orderDetails) {
+			float price,int unitstock, Date publishedDate, Date lastUpdateTime, Set<Review> reviews, Set<OrderDetail> orderDetails) {
 		this.category = category;
 		this.title = title;
 		this.author = author;
@@ -100,6 +102,7 @@ public class Book implements java.io.Serializable {
 		this.isbn = isbn;
 		this.image = image;
 		this.price = price;
+		this.unitstock=unitstock;
 		this.publishedDate = publishedDate;
 		this.lastUpdateTime = lastUpdateTime;
 		this.reviews = reviews;
@@ -186,11 +189,21 @@ public class Book implements java.io.Serializable {
 	public float getPrice() {
 		return this.price;
 	}
-
+	
 	public void setPrice(float price) {
 		this.price = price;
 	}
+	
+	@Column(name = "unitstock", nullable = false)
+	public int getUnitstock() {
+		return this.unitstock;
+	}
 
+	public void setUnitstock(int unitstock) {
+		this.unitstock = unitstock;
+	}
+
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "published_date", nullable = false, length = 10)
 	public Date getPublishedDate() {

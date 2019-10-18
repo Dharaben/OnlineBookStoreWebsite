@@ -40,6 +40,7 @@ public class BookDAOTest {
 		newBook.setAuthor("Joshua Bloch");
 		newBook.setDescription("New Coverage-of generics,enums,annotations,autoboxing");
 		newBook.setPrice(38.87f);
+		newBook.setUnitstock(12);
 		newBook.setIsbn("0-13-468599-7");
 
 		DateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
@@ -65,6 +66,7 @@ public class BookDAOTest {
 		newBook.setAuthor("Raoul-Gabriel Urma");
 		newBook.setDescription("java 8 in Action is a clearly written guide to the new features of Java 8");
 		newBook.setPrice(36.72f);
+
 		newBook.setIsbn("1-61-729199-4");
 
 		DateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
@@ -92,6 +94,7 @@ public class BookDAOTest {
 		exitBook.setAuthor("Joshua Bloch");
 		exitBook.setDescription("New Coverage-of generics,enums,annotations,autoboxing");
 		exitBook.setPrice(40f);
+
 		exitBook.setIsbn("0-13-468599-8");
 
 		DateFormat dateFormate = new SimpleDateFormat("MM/dd/yyyy");
@@ -128,7 +131,7 @@ public class BookDAOTest {
 		assertNotNull(book);
 	}
 
-	@Test
+	@Test //list all book
 	public void testListAll() {
 		List<Book> listBooks = bookDAO.listAll();
 
@@ -178,15 +181,6 @@ public class BookDAOTest {
 
 		assertTrue(listBooks.size() > 0);
 	}
-	
-	@Test
-	public void testListByNewBooks() {
-		List<Book> listNewBooks = bookDAO.listNewBooks();
-		for (Book aBook : listNewBooks) {
-			System.out.println(aBook.getTitle() + "-" + aBook.getPublishedDate());
-		}
-		assertEquals(4, listNewBooks.size());
-	}
 
 	@Test
 	public void testSearchBookInTitle() {
@@ -226,6 +220,35 @@ public class BookDAOTest {
 		int categoryId = 69;
 		long numOfBooks = bookDAO.countByCategory(categoryId);
 		assertTrue(numOfBooks == 7);
+	}
+
+	@Test // list new Books
+	public void testListByNewBooks() {
+		List<Book> listNewBooks = bookDAO.listNewBooks();
+		for (Book aBook : listNewBooks) {
+			System.out.println(aBook.getTitle() + "-" + aBook.getPublishedDate());
+		}
+		assertEquals(4, listNewBooks.size());
+	}
+
+	@Test // list best selling books
+	public void testListBestSellingBooks() {
+		List<Book> topBestSellingBooks = bookDAO.listBestSellingBooks();
+
+		for (Book book : topBestSellingBooks) {
+			System.out.println(book.getTitle());
+		}
+		assertEquals(4, topBestSellingBooks.size());
+	}
+
+	@Test // list Most Favourite book
+	public void testListMostFavoredBooks() {
+		List<Book> topFavoredBooks = bookDAO.listMostFavoredBooks();
+
+		for (Book book : topFavoredBooks) {
+			System.out.println(book.getTitle());
+		}
+		assertEquals(4, topFavoredBooks.size());
 	}
 
 	@AfterClass // After all test methods in the test After class

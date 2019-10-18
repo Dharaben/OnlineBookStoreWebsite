@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.controller.frontend.shoppingCart.ShoppingCart;
+
 @WebServlet("/logout")
 public class CustomerLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +20,9 @@ public class CustomerLogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getSession().removeAttribute("loggedCustomer");
-
+		
+		ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
+	    cart.clear();
 		response.sendRedirect(request.getContextPath());
 	}
 

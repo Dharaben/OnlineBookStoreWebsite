@@ -8,15 +8,14 @@
 	<persistence-unit name="OnlineBookStoreWebsite">
 		<class>com.bookstore.entity.Employee</class>
 		<class>com.bookstore.entity.Book</class>
-		<class>com.bookstore.entity.Category</class>
-		<class>com.bookstore.entity.CreditCart</class>
-		<class>com.bookstore.entity.Customer</class>
 		<class>com.bookstore.entity.Order</class>
 		<class>com.bookstore.entity.OrderDetail</class>
 		<class>com.bookstore.entity.OrderDetailId</class>
-		<class>com.bookstore.entity.Payment</class>
+		<class>com.bookstore.entity.Category</class>
+		<class>com.bookstore.entity.CreditCart</class>
+		<class>com.bookstore.entity.Customer</class>
 		<class>com.bookstore.entity.Review</class>
-		<class>com.bookstore.entity.ShoppingCart</class>
+		<class>com.bookstore.entity.Payment</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url"

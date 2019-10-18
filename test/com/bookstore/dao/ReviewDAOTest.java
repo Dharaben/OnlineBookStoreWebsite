@@ -91,7 +91,7 @@ public class ReviewDAOTest {
 	}
 
 	@Test
-	public void testFindByCustomerAndBooFound() {
+	public void testFindByCustomerAndBookFound() {
 		Integer customerId = 1;
 		Integer bookId = 4;
 

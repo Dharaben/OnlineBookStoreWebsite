@@ -31,9 +31,13 @@ public class HomeServlet extends HttpServlet {
 		
 		List<Category> listCategory=categoryDAO.listAll();
 		List<Book> listNewBooks=bookDAO.listNewBooks();
+		List<Book> listBestSellingBooks=bookDAO.listBestSellingBooks();
+		List<Book> listMostFavoredBooks=bookDAO.listMostFavoredBooks();
 		
 		request.setAttribute("listCategory", listCategory);
 		request.setAttribute("listNewBooks", listNewBooks);
+		request.setAttribute("listBestSellingBooks",listBestSellingBooks);
+		request.setAttribute("listMostFavoredBooks", listMostFavoredBooks);
 		
 		String homepage = "frontend/index.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
