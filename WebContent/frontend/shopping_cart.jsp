@@ -30,7 +30,7 @@ body {
 h2 {
 	color: #333;
 	text-align: center;
-	text-transform: uppercase,lowercase;
+	text-transform: uppercase, lowercase;
 	font-family: "Roboto", sans-serif;
 	font-weight: bold;
 	position: relative;
@@ -89,9 +89,11 @@ h3 {
 								<th><h4>
 										<b>Book</b>
 									</h4></th>
-								<th class="text-center">	<h4>
+								<th class="text-center">
+									<h4>
 										<b>Quantity</b>
-									</h4></th>
+									</h4>
+								</th>
 								<th class="text-center"><h4>
 										<b>Unit Price</b>
 									</h4></th>
@@ -134,18 +136,18 @@ h3 {
 											</div>
 										</div>
 									</td>
-								
+
 									<td class="col-sm-1 col-md-1" style="text-align: center">
 										<input type="hidden" name="bookId" value="${item.key.bookId}" />
-										
+
 										<input type="text" class="form-control" id="quantity"
 										name="quantity${status.index + 1}" value="${item.value}">
 									</td>
-								
+
 									<td class="col-sm-1 col-md-1 text-center"><strong></strong>
-									<fmt:formatNumber value="${item.key.price}" type="currency" /></td>
+										<fmt:formatNumber value="${item.key.price}" type="currency" /></td>
 									<td class="col-sm-1 col-md-1 text-center"><strong></strong>
-									<fmt:formatNumber value="${item.value*item.key.price}"
+										<fmt:formatNumber value="${item.value*item.key.price}"
 											type="currency" /></td>
 									<td class="col-sm-1 col-md-1">
 										<button type="button" class="btn btn-danger"
@@ -163,51 +165,45 @@ h3 {
 
 								<td align="center"><b>SubTotal: </b></td>
 								<td align="center"><b><fmt:formatNumber
-										value="${cart.totalAmount}" type="currency" /></b></td>
+											value="${cart.totalAmount}" type="currency" /></b></td>
 								<td class="text-right"></td>
 							</tr>
-									<tr>
+							<tr>
 								<td> </td>
 								<td><b>Shipping:</b></td>
-								<td align="center"><select name="shippingStatus">
-							<option value="Free"
-										<c:if test="${order.orderStatus eq 'Free' }">selected='selected'</c:if>>Free 5-7 Days</option>
-									<option value="3Days"
-										<c:if test="${order.orderStatus eq '3Days' }">selected='selected'</c:if>>$10.00 3 Days</option>
-										<option value="NextDay"
-										<c:if test="${order.orderStatus eq 'NextDay' }">selected='selected'</c:if>>$20 Next Day</option>
-									
-										
-							</select></td>
-								<td class="text-center"><h5>
-										<strong>$6.94</strong>
-									</h5></td>
+								<td align="center">
+									<div class="totals-value" id="cart-shipping">
+										<select id="singleSelectValueDDjQuery" class="form-control" name="shipping"
+											onchange="calculateTax(this.value)">
+											<option value="">Select value</option>
+											<option value="0">Free</option>
+											<option value="10">3 Days</option>
+											<option value="20">Next Day</option>
+										</select>
+									</div>
+								</td>
+								<td class="center" align="center"><input type="text" id="textFieldValueJQ"
+									class="form-control" placeholder="Shipping value" name="shippingValue"
+									readonly="readonly" /></td>
 								<td></td>
-
 							</tr>
-									<tr>
+							<tr>
 								<td> </td>
 								<td> </td>
 								<td align="center"><h5>
-										<b>Tax:	</b>
+										<b>Tax: (3%)</b>
 									</h5></td>
-								<td class="text-center"><h5>
-										<strong><fmt:formatNumber 
-												value="${(cart.totalAmount+6.94)*0.030}" type="currency" /> </strong>
-									</h5></td>
+								<td class="text-center" align="center"><b><input type="text"
+										class="form-control" id="tax" name="tax" readonly="readonly"></b></td>
 								<td></td>
 
 							</tr>
 							<tr>
 								<td> </td>
-							
-								<td align="center" colspan="2"><h3>
-										<b>Order Total </b>
-									</h3></td>
-								<td class="text-center"><h3>
-										<strong><fmt:formatNumber
-												value="${cart.totalAmount}" type="currency" /></strong>
-									</h3></td>
+								<td></td>
+								<td align="center"><b>Order Total </b></td>
+								<td class="text-center"><b> <input type="text"
+										class="form-control" id="orderTotal" name="orderTotal" readonly="readonly"></b></td>
 								<td></td>
 
 							</tr>
@@ -234,7 +230,8 @@ h3 {
 									</button>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary" onclick="location.href = 'checkout';">
+									<button type="button" id="checkout" class="btn btn-primary"
+										onclick="location.href = 'checkout';">
 										Checkout <span class="glyphicon glyphicon-play"></span>
 									</button>
 								</td>
@@ -250,12 +247,11 @@ h3 {
 	<jsp:directive.include file="footer.jsp" />
 </body>
 <script type="text/javascript">
-	
 		$(document).ready(function() {
+		
 			$("#clearCart").click(function() {
 				window.location = 'clear_cart';
 			});
-			
 			$("#cartForm").validate({
 				rules : {
 					<c:forEach items="${cart.items}" var="item" varStatus="status">
@@ -274,7 +270,23 @@ h3 {
 					</c:forEach>					
 				}
 			});
+			 $("#singleSelectValueDDjQuery").on("change",function(){
+			        //Getting Value
+			        var selValue = $("#singleSelectValueDDjQuery").val();
+			        //Setting Value
+			        $("#textFieldValueJQ").val(selValue);
+			    });
 		});
+		function calculateTax(val) {
+			var shipping=val*1;
+			var tax_count=(((${cart.totalAmount}+shipping)*0.03).toFixed(2));
+			var  taxObj=document.getElementById('tax');
+			
+			taxObj.value=tax_count;
+			
+			var totalObj = document.getElementById('orderTotal');
+			totalObj.value = (${cart.totalAmount} + tax_count*1 + shipping).toFixed(2);
+		}
 	</script>
 </body>
 </html>

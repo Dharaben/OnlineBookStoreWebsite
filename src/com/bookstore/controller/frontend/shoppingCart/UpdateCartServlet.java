@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/update_cart")
 public class UpdateCartServlet extends HttpServlet {
@@ -32,9 +33,20 @@ public class UpdateCartServlet extends HttpServlet {
 
 		ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
 		cart.updateCart(bookIds, quantities);
+		
+		/*HttpSession session = request.getSession(true);
+
+		session.setAttribute("shipping", request.getAttribute("shipping"));
+
+		session.setAttribute("tax", request.getAttribute("tax"));
+
+		session.setAttribute("orderTotal", request.getAttribute("orderTotal"));*/
 
 		String cartPage = request.getContextPath().concat("/view_cart");
 		response.sendRedirect(cartPage);
+
+		
+
 	}
 
 }

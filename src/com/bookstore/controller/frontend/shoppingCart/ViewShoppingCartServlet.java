@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bookstore.entity.Book;
 
@@ -22,23 +23,30 @@ public class ViewShoppingCartServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Object cartObject=request.getSession().getAttribute("cart");
-		
-		if(cartObject==null) {
-			ShoppingCart shoppingCart=new ShoppingCart();
+		Object cartObject = request.getSession().getAttribute("cart");
+
+		if (cartObject == null) {
+			ShoppingCart shoppingCart = new ShoppingCart();
 			request.getSession().setAttribute("cart", shoppingCart);
+			
 		}
-		
-		Book book=new Book();
+
+		Book book = new Book();
 		book.setTitle("Effective Java:3rd edition");
 		book.setPrice(20);
-		
-		ShoppingCart shoppingCart=(ShoppingCart)request.getSession().getAttribute("cart");
-		//shoppingCart.addItem(book);
-		
+
+		ShoppingCart shoppingCart = (ShoppingCart) request.getSession().getAttribute("cart");
+		// shoppingCart.addItem(book);
+
 		String cartPage = "frontend/shopping_cart.jsp";
-		RequestDispatcher dispatcher=request.getRequestDispatcher(cartPage);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(cartPage);
 		dispatcher.forward(request, response);
+
+		/*HttpSession session = request.getSession(true);
+		Object  cart = new Object();
+		session.setAttribute("shipping",  cart);
+		session.setAttribute("tax",  cart);
+		session.setAttribute("orderTotal",  cart);*/
 	}
 
 }
