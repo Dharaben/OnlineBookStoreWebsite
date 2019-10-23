@@ -173,36 +173,53 @@ h2::after {
 																	<td><i><b>${cart.totalQuantity} book(s)</b></i></td>
 
 																	<td align="center"><b>SubTotal </b></td>
-																	<td align="center"><fmt:formatNumber
-																			value="${cart.totalAmount}" type="currency" /></b></td>
+																	<td align="center"><b><fmt:formatNumber
+																				value="${cart.totalAmount}" type="currency" /></b></td>
 																	<td class="text-right"></td>
+																</tr>
+																<tr>
+																	<td> </td>
+																	<td><b>Shipping:</b></td>
+																	<td align="center">
+																		<div class="totals-value" id="cart-shipping">
+																			<select id="singleSelectValueDDjQuery"
+																				class="form-control"
+																				onchange="calculateTax(this.value)">
+																				<option value="">Select value</option>
+																				<option value="0">Free</option>
+																				<option value="10">3 Days</option>
+																				<option value="20">Next Day</option>
+																			</select>
+																		</div>
+																	</td>
+																	<td align="center"><input type="text"
+																		id="textFieldValueJQ" class="form-control"
+																		placeholder="Shipping value" readonly="readonly" /></td>
+																	<td></td>
+
 																</tr>
 																<tr>
 																	<td> </td>
 																	<td> </td>
 																	<td align="center"><h5>
-																			<b>Estimated shipping</b>
+																			<b>Tax: (3%)</b>
 																		</h5></td>
-																	<td class="text-center"><h5>
-																			<strong>$6.94</strong>
-																		</h5></td>
+																	<td class="text-center" align="center"><b><input
+																			type="text" class="form-control" id="tax" name="tax"
+																			readonly="readonly"></b></td>
 																	<td></td>
 
 																</tr>
 																<tr>
 																	<td> </td>
-																	<td> </td>
-																	<td align="center"><h3>
-																			<b>Total </b>
-																		</h3></td>
-																	<td class="text-center"><h3>
-																			<strong><fmt:formatNumber
-																					value="${cart.totalAmount+6.94}" type="currency" /></strong>
-																		</h3></td>
+																	<td></td>
+																	<td align="center"><b>Order Total </b></td>
+																	<td class="text-center"><b> <input type="text"
+																			class="form-control" id="orderTotal"
+																			name="orderTotal" readonly="readonly"></b></td>
 																	<td></td>
 
 																</tr>
-
 															</tfoot>
 														</table>
 													</div>
@@ -416,8 +433,7 @@ h2::after {
 				city : "required",
 				zipcode : "required",
 				country : "required",
-			
-			
+
 			},
 			messages : {
 				recipientName : "Please enter recipient name.",
@@ -426,12 +442,9 @@ h2::after {
 				city : "Please enter city.",
 				zipcode : "Please enter zipcode.",
 				country : "Please enter country.",
-			
-			
-				
 			}
-		});		
-		
+		});
+
 	});
 </script>
 
