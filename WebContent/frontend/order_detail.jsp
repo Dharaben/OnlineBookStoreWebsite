@@ -278,6 +278,7 @@ table.table .avatar {
 				</div>
 				<table class="table table-striped table-hover">
 					<tbody>
+	
 						<tr>
 							<td><b>Order Status: </b></td>
 							<td style="color: red;">${order.orderStatus}</td>

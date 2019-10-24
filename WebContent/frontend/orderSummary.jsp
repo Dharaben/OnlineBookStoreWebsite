@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,8 +60,8 @@ h4 {
 </head>
 <body>
 	<jsp:directive.include file="header.jsp" />
-	<h2>Ordered Summary</h2>
-	<div class="row invoice row-printable">
+	<h2>Order Summary</h2>
+	<div class="row invoice row-printable" style="height: 1200px">
 		<div class="col-md-7 col-md-offset-2">
 			<!-- col-lg-12 start here -->
 			<div class="panel panel-default plain" id="dash_0">
@@ -84,10 +85,12 @@ h4 {
 									<li>USA</li>
 									<li></li>
 									<li></li>
-									<li><b>Order Date: </b></li>
+									<li><b>Order Date  ${order.orderDate} </b></li>
+									
 								</ul>
 							</div>
 						</div>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Order Id:${order.orderId}</b>
 					
 						<!-- col-lg-6 end here -->
 						<div class="col-lg-12">
@@ -114,7 +117,7 @@ h4 {
 									<div class="well">
 										<ul class="list-unstyled mb0">
 											<li><strong>Payment Method:</strong>${order.paymentMethod}</li>
-											<li><strong>CVC</strong>
+											<li><strong>CVC:</strong>${payment.cvc}</li>
 										</ul>
 									</div>
 								</div>
@@ -131,35 +134,57 @@ h4 {
 												</tr>
 											</thead>
 											<tbody>
+												<c:forEach items="${order.orderDetails}" var="item">
 												<tr>
-													<td></td>
-													<td></td>
-													<td class="text-center"></td>
-													<td class="text-center"></td>
+													<td>${item.book.bookId}</td>
+													<td><b>${item.book.title}</b> <br/>
+													    ${item.book.author}
+													</td>
+													<td class="text-center">${item.quantity}</td>
+													<td class="text-center">${item.subtotal}</td>
 												</tr>
-												<tr>
+												</c:forEach>
 											</tbody>
 											<tfoot>
+											
 												<tr>
-													<th colspan="3" class="text-right">${cart.totalQuantity}
+													<th colspan="3" class="text-right">${order.bookCopies}
 														book(s)</th>
 													<th class="text-center"></th>
 												</tr>
 												<tr>
 													<th colspan="3" class="text-right">Sub Total:</th>
-													<th class="text-center"></th>
+													<th class="text-center"><b><fmt:formatNumber
+																				value="${order.orderTotal}" type="currency" /></b>
+																	</th>
 												</tr>
+												
 												<tr>
 												<tr>
 													<th colspan="3" class="text-right">Shipping Charge:</th>
-													<th class="text-center"></th>
+													<th class="text-center"><input
+																		type="text" id="textFieldValueJQ" class="form-control"
+																		placeholder="Shipping value" maxlength="4" size="4" readonly="readonly"/></th>
+												</tr>
+												<tr>
+													<th colspan="3" class="text-right">Tax:</th>
+													<th class="text-center"><input
+																			type="text" class="form-control" id="tax" name="tax"
+																			maxlength="4" size="4" readonly="readonly"></th>
 												</tr>
 												<tr>
 													<th colspan="3" class="text-right">Total:</th>
-													<th class="text-center"></th>
+													<th class="text-center"><input type="text"
+																			class="form-control" id="orderTotal"
+																			name="orderTotal" maxlength="4" size="4" readonly="readonly"></th>
 												</tr>
 											</tfoot>
 										</table>
+										<center><button type="button" id="clearCart" 
+										class="btn btn-primary">
+										 Send Confirmation Email
+										
+									</button></center>
 									</div>
 								</div>
 							</form>
@@ -177,4 +202,18 @@ h4 {
 
 	<jsp:directive.include file="footer.jsp" />
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+		var shipValue = sessionStorage.getItem("shipping");
+		var taxValue=sessionStorage.getItem("tax");
+		var orderTotalValue=sessionStorage.getItem("orderTotal");
+		
+		$("#textFieldValueJQ").val(shipValue);
+		$("#tax").val(taxValue);
+		$("#orderTotal").val(orderTotalValue);
+
+	});
+
+</script>
+
 </html>

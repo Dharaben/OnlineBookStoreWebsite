@@ -183,7 +183,7 @@ h3 {
 									</div>
 								</td>
 								<td class="center" align="center"><input type="text" id="textFieldValueJQ"
-									class="form-control" placeholder="Shipping value" name="shippingValue"
+									class="form-control" placeholder="Shipping value" name="shippingValue" 
 									readonly="readonly" /></td>
 								<td></td>
 							</tr>
@@ -248,7 +248,11 @@ h3 {
 </body>
 <script type="text/javascript">
 		$(document).ready(function() {
-		
+		    $("#checkout").click(function() {
+		    	sessionStorage.setItem("shipping",$("#textFieldValueJQ").val());
+		    	sessionStorage.setItem("tax",$("#tax").val());
+		    	sessionStorage.setItem("orderTotal",$("#orderTotal").val());
+			})
 			$("#clearCart").click(function() {
 				window.location = 'clear_cart';
 			});

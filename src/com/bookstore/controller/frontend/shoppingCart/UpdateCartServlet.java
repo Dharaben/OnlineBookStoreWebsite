@@ -34,13 +34,7 @@ public class UpdateCartServlet extends HttpServlet {
 		ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
 		cart.updateCart(bookIds, quantities);
 		
-		/*HttpSession session = request.getSession(true);
-
-		session.setAttribute("shipping", request.getAttribute("shipping"));
-
-		session.setAttribute("tax", request.getAttribute("tax"));
-
-		session.setAttribute("orderTotal", request.getAttribute("orderTotal"));*/
+	
 
 		String cartPage = request.getContextPath().concat("/view_cart");
 		response.sendRedirect(cartPage);

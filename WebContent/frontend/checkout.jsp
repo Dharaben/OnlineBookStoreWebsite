@@ -99,7 +99,8 @@ h2::after {
 															<thead>
 																<tr>
 																	<th colspan="1"><h4>
-																			<b>Book</b>
+																			<b>Book 
+																			</b>
 																		</h4></th>
 																	<th class="text-center">
 																		<h4>
@@ -179,21 +180,12 @@ h2::after {
 																</tr>
 																<tr>
 																	<td> </td>
-																	<td><b>Shipping:</b></td>
-																	<td align="center">
-																		<div class="totals-value" id="cart-shipping">
-																			<select id="singleSelectValueDDjQuery"
-																				class="form-control"
-																				onchange="calculateTax(this.value)">
-																				<option value="">Select value</option>
-																				<option value="0">Free</option>
-																				<option value="10">3 Days</option>
-																				<option value="20">Next Day</option>
-																			</select>
-																		</div>
+																	<td></td>
+																	<td>
+																		<b>Shipping:</b>
 																	</td>
-																	<td align="center"><input type="text"
-																		id="textFieldValueJQ" class="form-control"
+																	<td align="center"><input
+																		type="text" id="textFieldValueJQ" class="form-control"
 																		placeholder="Shipping value" readonly="readonly" /></td>
 																	<td></td>
 
@@ -425,6 +417,14 @@ h2::after {
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var shipValue = sessionStorage.getItem("shipping");
+		var taxValue=sessionStorage.getItem("tax");
+		var orderTotalValue=sessionStorage.getItem("orderTotal");
+		
+		$("#textFieldValueJQ").val(shipValue);
+		$("#tax").val(taxValue);
+		$("#orderTotal").val(orderTotalValue);
+		
 		$("#orderForm").validate({
 			rules : {
 				recipientName : "required",
@@ -433,7 +433,8 @@ h2::after {
 				city : "required",
 				zipcode : "required",
 				country : "required",
-
+			
+			
 			},
 			messages : {
 				recipientName : "Please enter recipient name.",
@@ -443,9 +444,10 @@ h2::after {
 				zipcode : "Please enter zipcode.",
 				country : "Please enter country.",
 			}
-		});
-
+		});		
+		
 	});
+
 </script>
 
 </html>

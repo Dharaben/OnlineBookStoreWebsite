@@ -22,6 +22,8 @@ public class CheckOutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		OrderServices orderServices=new OrderServices(request, response);
 		orderServices.showCheckOutForm();
+		
+		
 	}
 
 }

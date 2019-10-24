@@ -103,7 +103,17 @@ public class OrderServices {
 	}
 
 	public void showCheckOutForm() throws ServletException, IOException {
+		
 		String checkOutPage = "frontend/checkout.jsp";
+		int orderId = 114;
+
+		HttpSession session = request.getSession();
+		Customer customer = (Customer) session.getAttribute("loggedCustomer");
+
+		Order order = orderDAO.get(orderId, customer.getCustomerId());
+		request.setAttribute("order", order);
+
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(checkOutPage);
 		requestDispatcher.forward(request, response);
 
@@ -147,7 +157,7 @@ public class OrderServices {
 		Iterator<Book> iterator = items.keySet().iterator();
 
 		Set<OrderDetail> orderDetails = new HashSet<>();
-
+	
 		while (iterator.hasNext()) {
 			Book book = iterator.next();
 			Integer quantity = items.get(book);
@@ -158,10 +168,10 @@ public class OrderServices {
 			orderDetail.setOrder(order);
 			orderDetail.setQuantity(quantity);
 			orderDetail.setSubtotal(subtotal);
-
+			
 			orderDetails.add(orderDetail);
 		}
-
+		
 		order.setOrderDetails(orderDetails);
 		order.setOrderTotal(shoppingCart.getTotalAmount());
 
@@ -184,8 +194,9 @@ public class OrderServices {
 
 		String message = "Thank you. Your order has been received." + "We will deliver your books within a few days.";
 		request.setAttribute("message", message);
-
-		String messagePage = "frontend/orderSummary.jsp";
+        request.setAttribute("order", order);
+        request.setAttribute("payment", payment);
+        String messagePage = "frontend/orderSummary.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
 		requestDispatcher.forward(request, response);
 
@@ -276,8 +287,11 @@ public class OrderServices {
 		listAllOrder(message);
 	}
 
-	public void orderSummary(){
+	public void orderSummary() throws ServletException, IOException{
 		
+		String placeOrderPage = "frontend/orderSummary.jsp";
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(placeOrderPage);
+		requestDispatcher.forward(request, response);
 
 	}
 
