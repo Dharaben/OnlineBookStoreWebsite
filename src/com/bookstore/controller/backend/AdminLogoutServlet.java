@@ -20,8 +20,12 @@ public class AdminLogoutServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session=request.getSession();
+		HttpSession session=request.getSession(false);
 		session.removeAttribute("employeeemail");
+		
+		if(session != null){
+            session.invalidate();
+        }
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);

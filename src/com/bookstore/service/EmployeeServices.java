@@ -3,8 +3,10 @@ package com.bookstore.service;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bookstore.dao.EmployeeDAO;
 import com.bookstore.entity.Employee;
@@ -28,7 +30,20 @@ public class EmployeeServices {
 
 		if (loginResult) {
 			System.out.println("Employee logged In successfully with " + email);
-			request.getSession().setAttribute("employeeemail", email);
+			// request.getSession().setAttribute("employeeemail", email);
+
+			HttpSession session = request.getSession(true); // Reuse existing
+
+			// session if exist
+
+			// or create one
+			session.setAttribute("employeeemail", email);
+			session.setMaxInactiveInterval(30);// 30 second session
+			System.out.println("30 second");
+
+			Cookie ck = new Cookie("employeeemail", email); // store cookies
+
+			response.addCookie(ck);
 
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/");
 			requestDispatcher.forward(request, response);

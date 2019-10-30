@@ -180,7 +180,7 @@ h4 {
 												</tr>
 											</tfoot>
 										</table>
-										<center><button type="button" id="clearCart" 
+										<center><button type="button" id="" 
 										class="btn btn-primary">
 										 Send Confirmation Email
 										

@@ -176,8 +176,8 @@ public class OrderServices {
 		order.setOrderTotal(shoppingCart.getTotalAmount());
 
 		PaymentDAO paymentDAO = new PaymentDAO();
-		paymentDAO.create(payment);
-
+		paymentDAO.create(payment);		
+		 
 		orderDAO.create(order);
 
 		shoppingCart.clear();

@@ -52,6 +52,7 @@ public class AdminLoginFilter implements Filter {
 		} else if (loggedIn || loginRequest) {
 			System.out.println("Employee logged in");
 			chain.doFilter(request, response);
+			
 		} else {
 			System.out.println("Employee not logged in");
 	        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length()).replaceAll("[/]+$", ""); 

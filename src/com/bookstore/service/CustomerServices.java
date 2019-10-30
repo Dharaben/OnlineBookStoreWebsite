@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -105,9 +106,12 @@ public class CustomerServices {
 			request.setAttribute("message", message);
 			showLogin();
 		} else {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);//Reuse existing
 			session.setAttribute("loggedCustomer", customer);
-
+			session.setMaxInactiveInterval(30); //30 second
+			
+			  Cookie ck=new Cookie("customer", email); //store cookies
+	          response.addCookie(ck);
 			Object objRedirectURL = session.getAttribute("redirectURL");
 
 			if (objRedirectURL != null) {
