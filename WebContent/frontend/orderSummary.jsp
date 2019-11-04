@@ -46,9 +46,19 @@ h2::after {
 	bottom: -10px;
 }
 
-h4 {
+h4{
 	color: #333;
 	text-align: left;
+	text-transform: uppercase, lowercase;
+	font-family: "Roboto", sans-serif;
+	font-weight: bold;
+	position: relative;
+	margin: 25px 0 50px;
+}
+
+h3 {
+	color:#FF0000;
+	text-align: center;
 	text-transform: uppercase, lowercase;
 	font-family: "Roboto", sans-serif;
 	font-weight: bold;
@@ -61,6 +71,12 @@ h4 {
 <body>
 	<jsp:directive.include file="header.jsp" />
 	<h2>Order Summary</h2>
+		<c:if test="${message!=null}">
+		<div align="center">
+			<h3 class="message">${message}</h3>
+
+		</div>
+	</c:if>
 	<div class="row invoice row-printable" style="height: 1200px">
 		<div class="col-md-7 col-md-offset-2">
 			<!-- col-lg-12 start here -->
@@ -180,11 +196,7 @@ h4 {
 												</tr>
 											</tfoot>
 										</table>
-										<center><button type="button" id="" 
-										class="btn btn-primary">
-										 Send Confirmation Email
 										
-									</button></center>
 									</div>
 								</div>
 							</form>

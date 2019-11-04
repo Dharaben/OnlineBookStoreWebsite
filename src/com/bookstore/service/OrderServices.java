@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.bookstore.controller.frontend.email.ConfirmationEmailSend;
 import com.bookstore.controller.frontend.shoppingCart.ShoppingCart;
 import com.bookstore.dao.OrderDAO;
 import com.bookstore.dao.PaymentDAO;
@@ -103,7 +104,7 @@ public class OrderServices {
 	}
 
 	public void showCheckOutForm() throws ServletException, IOException {
-		
+
 		String checkOutPage = "frontend/checkout.jsp";
 		int orderId = 114;
 
@@ -113,7 +114,6 @@ public class OrderServices {
 		Order order = orderDAO.get(orderId, customer.getCustomerId());
 		request.setAttribute("order", order);
 
-		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(checkOutPage);
 		requestDispatcher.forward(request, response);
 
@@ -147,17 +147,17 @@ public class OrderServices {
 
 		HttpSession session = request.getSession();
 		Customer customer = (Customer) session.getAttribute("loggedCustomer");
-		//payment.setNameCard(nameCard);
+		// payment.setNameCard(nameCard);
 		order.setCustomer(customer);
 		order.setPayment(payment);
-		
+
 		ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("cart");
 		Map<Book, Integer> items = shoppingCart.getItems();
 
 		Iterator<Book> iterator = items.keySet().iterator();
 
 		Set<OrderDetail> orderDetails = new HashSet<>();
-	
+
 		while (iterator.hasNext()) {
 			Book book = iterator.next();
 			Integer quantity = items.get(book);
@@ -168,17 +168,55 @@ public class OrderServices {
 			orderDetail.setOrder(order);
 			orderDetail.setQuantity(quantity);
 			orderDetail.setSubtotal(subtotal);
-			
+
 			orderDetails.add(orderDetail);
 		}
-		
+
 		order.setOrderDetails(orderDetails);
 		order.setOrderTotal(shoppingCart.getTotalAmount());
 
 		PaymentDAO paymentDAO = new PaymentDAO();
-		paymentDAO.create(payment);		
-		 
+		paymentDAO.create(payment);
+
 		orderDAO.create(order);
+
+		/// Send email
+		// String mailTo ="dharapatel1790@gmail.com";
+
+		String mailTo = customer.getEmail();
+		String subject = "Ordered Book";
+		String message = "Order Summary \n\n";
+
+		message = message + "DKBookStore.com \n";
+		message = message + "2224 Columbia Avenue \n";
+		message = message + "Jersey City,07303 \n";
+		message = message + "New Jersey \n";
+		message = message + "USA \n\n";
+		message = message + "Order Id : " + order.getOrderId() + "\n";
+		message = message + "Order Date : " + order.getOrderDate() + "\n\n";
+		message = message + "Recipient Name : " + order.getRecipientName() + "\n";
+		message = message + "Shipping Address : " + order.getShippingAddress() + "\n";
+		message = message + "Recipient Phone : " + order.getRecipientPhone() + "\n\n";
+		message = message + "Name Card : " + payment.getNameCard() + "\n";
+		message = message + "Card Number : " + payment.getCardNumber() + "\n";
+		message = message + "CVC  : " + payment.getCvc() + "\n\n";
+
+		Map<Book, Integer> cartItems = shoppingCart.getItems();
+		Iterator<Book> itr = cartItems.keySet().iterator();
+
+		while (itr.hasNext()) {
+			Book currentBook = itr.next();
+			message = message + "ID : " + currentBook.getBookId() + "\n";
+			message = message + "Title : " + currentBook.getTitle() + "\n";
+			message = message + "Author : " + currentBook.getAuthor() + "\n";
+			message = message + "Price : " + currentBook.getPrice() + "\n\n";
+
+		}
+
+		// message.concat("\n\n");
+		message = message + "Quntity: " + order.getBookCopies() + "\n";
+		message = message + "Order Total : " + order.getOrderTotal();
+		ConfirmationEmailSend mail = new ConfirmationEmailSend(mailTo, subject, message);
 
 		shoppingCart.clear();
 
@@ -192,11 +230,11 @@ public class OrderServices {
 		 * requestDispatcher.forward(request, response);
 		 */
 
-		String message = "Thank you. Your order has been received." + "We will deliver your books within a few days.";
-		request.setAttribute("message", message);
-        request.setAttribute("order", order);
-        request.setAttribute("payment", payment);
-        String messagePage = "frontend/orderSummary.jsp";
+		String message1 = "Thank you. Your order summary sent on " + customer.getEmail() + "!";
+		request.setAttribute("message", message1);
+		request.setAttribute("order", order);
+		request.setAttribute("payment", payment);
+		String messagePage = "frontend/orderSummary.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(messagePage);
 		requestDispatcher.forward(request, response);
 
@@ -287,8 +325,8 @@ public class OrderServices {
 		listAllOrder(message);
 	}
 
-	public void orderSummary() throws ServletException, IOException{
-		
+	public void orderSummary() throws ServletException, IOException {
+
 		String placeOrderPage = "frontend/orderSummary.jsp";
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(placeOrderPage);
 		requestDispatcher.forward(request, response);

@@ -106,12 +106,12 @@ public class CustomerServices {
 			request.setAttribute("message", message);
 			showLogin();
 		} else {
-			HttpSession session = request.getSession(true);//Reuse existing
+			HttpSession session = request.getSession(true);// Reuse existing
 			session.setAttribute("loggedCustomer", customer);
-			session.setMaxInactiveInterval(30); //30 second
-			
-			  Cookie ck=new Cookie("customer", email); //store cookies
-	          response.addCookie(ck);
+			session.setMaxInactiveInterval(120); // 120 second
+
+			Cookie ck = new Cookie("customer", email); // store cookies
+			response.addCookie(ck);
 			Object objRedirectURL = session.getAttribute("redirectURL");
 
 			if (objRedirectURL != null) {
@@ -139,20 +139,20 @@ public class CustomerServices {
 	}
 
 	public void showCustomerHomePage() throws ServletException, IOException {
-	
-		CategoryDAO categoryDAO=new CategoryDAO();
-		BookDAO bookDAO=new BookDAO();
-		
-		List<Category> listCategory=categoryDAO.listAll();
-		List<Book> listNewBooks=bookDAO.listNewBooks();
-		List<Book> listBestSellingBooks=bookDAO.listBestSellingBooks();
-		List<Book> listMostFavoredBooks=bookDAO.listMostFavoredBooks();
-		
+
+		CategoryDAO categoryDAO = new CategoryDAO();
+		BookDAO bookDAO = new BookDAO();
+
+		List<Category> listCategory = categoryDAO.listAll();
+		List<Book> listNewBooks = bookDAO.listNewBooks();
+		List<Book> listBestSellingBooks = bookDAO.listBestSellingBooks();
+		List<Book> listMostFavoredBooks = bookDAO.listMostFavoredBooks();
+
 		request.setAttribute("listCategory", listCategory);
 		request.setAttribute("listNewBooks", listNewBooks);
-		request.setAttribute("listBestSellingBooks",listBestSellingBooks);
+		request.setAttribute("listBestSellingBooks", listBestSellingBooks);
 		request.setAttribute("listMostFavoredBooks", listMostFavoredBooks);
-		
+
 		String homepage = "frontend/index.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(homepage);
 		dispatcher.forward(request, response);
