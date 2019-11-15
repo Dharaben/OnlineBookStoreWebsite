@@ -17,8 +17,9 @@ public class ConfirmationEmailSend {
 	
 	String host = "smtp.gmail.com";
 	String port = "587";
-	String userName = "dkbookstore1235@gmail.com";
-	String password = "98991716Kp!";
+	String portSocket="465";
+	String userName = "dkbookstore123@gmail.com";
+	String password = "16171819Dp!";
 
 	public void sendEmail(String toAddress,
 			String subject, String message) throws AddressException, MessagingException {
@@ -29,6 +30,7 @@ public class ConfirmationEmailSend {
 		properties.put("mail.smtp.port", port);
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.socketFactory.port", portSocket);  
 		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
 		// creates a new session with an authenticator

@@ -182,7 +182,7 @@ public class BookDAOTest {
 		assertTrue(listBooks.size() > 0);
 	}
 
-	@Test
+	@Test                            //search book title
 	public void testSearchBookInTitle() {
 		String keyword = "java";
 		List<Book> result = bookDAO.search(keyword);
@@ -193,7 +193,7 @@ public class BookDAOTest {
 		assertEquals(3, result.size());
 	}
 
-	@Test
+	@Test                          //search book author
 	public void testSearchBookInAuthor() {
 		String keyword = "Craig Walls";
 		List<Book> result = bookDAO.search(keyword);
@@ -204,7 +204,7 @@ public class BookDAOTest {
 		assertEquals(1, result.size());
 	}
 
-	@Test
+	@Test                         //search book description contains
 	public void testSearchBookInDescription() {
 		String keyword = "CompletableFuture";
 		List<Book> result = bookDAO.search(keyword);

@@ -13,7 +13,7 @@ import javax.persistence.Query;
 //This class JPA to implement some persistence operations
 //that are common to all specific DAO classes
 //All DAO class have subclasses of JpaDAO class.
-//Alll DAO class implementing the Generic interface.
+//All DAO class implementing the Generic interface.
 //<E> is Parameterize type of generic type E
 //implement all operation for all subclasses
 public class JpaDAO<E> {
